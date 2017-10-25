@@ -12,7 +12,7 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI') or 'postgres://localhost/warbler-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
@@ -22,4 +22,4 @@ from project.users.views import users_api
 from project.warbles.views import warbles_api
 
 app.register_blueprint(users_api.blueprint, url_prefix='/api/users')
-app.register_blueprint(warbles_api.blueprint, url_prefix='/api/screens')
+app.register_blueprint(warbles_api.blueprint, url_prefix='/api/warbles')
